@@ -195,6 +195,35 @@
         <main class="flex-1 p-8 overflow-y-auto">
 
 
+                                <!-- MESSAGES -->
+{% if messages %}
+
+    <div class="mb-8 space-y-4">
+
+        {% for message in messages %}
+
+            <div class="px-6 py-5 rounded-2xl font-bold shadow-lg
+
+                {% if message.tags == 'success' %}
+                    bg-emerald-100 text-emerald-700 border border-emerald-200
+                {% elif message.tags == 'error' %}
+                    bg-red-100 text-red-700 border border-red-200
+                {% else %}
+                    bg-blue-100 text-blue-700 border border-blue-200
+                {% endif %}
+            ">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endif %}
+
+
 
             <!-- TOP -->
             <div class="flex justify-between items-center mb-10">
@@ -216,7 +245,7 @@
 
 
 
-                <div class="flex items-center gap-4">
+                {% comment %} <div class="flex items-center gap-4">
 
                     {% if is_admin %}
                     <a href="{% url 'add_patient' %}"
@@ -234,7 +263,58 @@
 
                     </a>
 
-                </div>
+                </div> {% endcomment %}
+                <div class="flex items-center gap-4 flex-wrap">
+
+
+
+
+
+    {% if is_admin %}
+
+    <!-- ADD PATIENT -->
+    <a href="{% url 'add_patient' %}"
+
+       class="bg-blue-600 hover:bg-blue-700 smooth text-white px-6 py-4 rounded-2xl font-bold shadow-lg">
+
+        + Add Patient
+
+    </a>
+
+
+
+
+
+    <!-- BACKUP DATABASE -->
+    <a href="{% url 'backup_database' %}"
+
+       class="bg-emerald-500 hover:bg-emerald-600 smooth text-white px-6 py-4 rounded-2xl font-bold shadow-lg">
+
+        Backup Database
+
+    </a>
+
+    {% endif %}
+
+
+
+
+
+
+
+    <!-- CREATE PRESCRIPTION -->
+    <a href="{% url 'create_prescription' %}"
+
+       class="bg-slate-900 hover:bg-black smooth text-white px-6 py-4 rounded-2xl font-bold shadow-lg">
+
+        Create Prescription
+
+    </a>
+
+</div>
+
+
+
 
             </div>
 

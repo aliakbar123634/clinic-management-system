@@ -24,5 +24,10 @@ urlpatterns = [
         views.dashboard,
         name='dashboard'
     ),
+    path(
+    'backup-database/',
+    views.backup_database,
+    name='backup_database'
+),
 
 ]

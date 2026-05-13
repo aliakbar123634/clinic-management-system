@@ -15,6 +15,13 @@ from prescriptions.models import (
     Prescription
 )
 
+import os
+import shutil
+
+from datetime import datetime
+
+from django.conf import settings
+
 
 
 # @admin_required
@@ -215,5 +222,71 @@ def dashboard(request):
     )
 
 
+@admin_required
+def backup_database(request):
+
+    # DATABASE PATH
+    db_path = settings.BASE_DIR / 'db.sqlite3'
+
+
+
+
+    # BACKUP FOLDER
+    backup_dir = settings.BASE_DIR / 'backups'
+
+
+
+
+    # CREATE BACKUP FOLDER
+    os.makedirs(
+
+        backup_dir,
+
+        exist_ok=True
+
+    )
+
+
+
+
+    # FILE NAME
+    timestamp = datetime.now().strftime(
+
+        '%Y_%m_%d_%H_%M_%S'
+
+    )
+
+
+
+
+    backup_file = backup_dir / f'backup_{timestamp}.sqlite3'
+
+
+
+
+    # COPY DATABASE
+    shutil.copy(
+
+        db_path,
+
+        backup_file
+
+    )
+
+
+
+
+    messages.success(
+
+        request,
+
+        'Database backup created successfully.'
+
+    )
+
+
+
+
+    return redirect('dashboard')
 
 #    python manage.py runserver
