@@ -166,6 +166,8 @@ def login_user(request):
             login(request, user)
 
             return redirect('dashboard')
+        else:
+            messages.error(request, 'Invalid username or password') 
 
     return render(
         request,
