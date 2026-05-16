@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.views.decorators.cache import never_cache
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -186,8 +188,8 @@ def logout_user(request):
         return redirect('login')
 
     return redirect('dashboard')
-
-
+@login_required(login_url='login')
+@never_cache
 def dashboard(request):
 
     total_patients = Patient.objects.count()
