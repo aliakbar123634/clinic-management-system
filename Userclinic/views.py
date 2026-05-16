@@ -289,4 +289,18 @@ def backup_database(request):
 
     return redirect('dashboard')
 
+
+
+
+from django.shortcuts import render
+
+
+def csrf_error(request, reason=""):
+
+    return render(
+        request,
+        'csrf_error.html',
+        status=403
+    )
+
 #    python manage.py runserver

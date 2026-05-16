@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i6=d$l1%*3@hqo-a&4kx^90r80xohmy6)i#(e-5j1y2-_g(0sq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -121,6 +121,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
-
+CSRF_FAILURE_VIEW = 'Userclinic.views.csrf_error'
 
 #        python manage.py runserver
