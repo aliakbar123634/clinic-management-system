@@ -195,6 +195,65 @@ def patient_history(request, patient_id):
     )
 
 
+
+
+
+
+
+
+
+
+
+# # PDF VIEW
+# def prescription_pdf(request, pk):
+
+#     prescription = get_object_or_404(
+#         Prescription,
+#         id=pk
+#     )
+
+#     items = prescription.items.all()
+
+#     context = {
+
+#         'prescription': prescription,
+#         'items': items
+
+#     }
+
+#     # HTML TEMPLATE
+#     html_string = render_to_string(
+#         'prescription_pdf.html',
+#         context
+#     )
+
+#     # RESPONSE
+#     response = HttpResponse(
+#         content_type='application/pdf'
+#     )
+
+#     response[
+#         'Content-Disposition'
+#     ] = f'attachment; filename="prescription_{prescription.id}.pdf"'
+
+#     # GENERATE PDF
+#     try:
+#         from weasyprint import HTML
+#     except Exception as exc:
+#         raise RuntimeError(
+#             'WeasyPrint is required to generate prescription PDFs. '
+#             'Install it with pip and the platform-specific dependencies.'
+#         ) from exc
+
+#     HTML(
+#         string=html_string,
+#         base_url=request.build_absolute_uri('/')
+#     ).write_pdf(response)
+
+#     return response
+
+
+
 # PDF VIEW
 def prescription_pdf(request, pk):
 
@@ -212,33 +271,8 @@ def prescription_pdf(request, pk):
 
     }
 
-    # HTML TEMPLATE
-    html_string = render_to_string(
+    return render(
+        request,
         'prescription_pdf.html',
         context
     )
-
-    # RESPONSE
-    response = HttpResponse(
-        content_type='application/pdf'
-    )
-
-    response[
-        'Content-Disposition'
-    ] = f'attachment; filename="prescription_{prescription.id}.pdf"'
-
-    # GENERATE PDF
-    try:
-        from weasyprint import HTML
-    except Exception as exc:
-        raise RuntimeError(
-            'WeasyPrint is required to generate prescription PDFs. '
-            'Install it with pip and the platform-specific dependencies.'
-        ) from exc
-
-    HTML(
-        string=html_string,
-        base_url=request.build_absolute_uri('/')
-    ).write_pdf(response)
-
-    return response
